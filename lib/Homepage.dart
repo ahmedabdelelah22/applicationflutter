@@ -1,7 +1,10 @@
 import 'dart:ui';
-
-import 'package:application_test/model.dart';
+import 'package:provider/provider.dart';
+import 'myproduct.dart';
+import 'model/cartmodel.dart';
+import 'model/model.dart';
 import 'package:flutter/material.dart';
+import 'myproduct.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -13,7 +16,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   List<product> productdata = [
     product(
-      price: "110",
+      price: 110,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/06.jpg',
@@ -21,7 +24,7 @@ class _HomepageState extends State<Homepage> {
       id: 1,
     ),
     product(
-      price: "110",
+      price: 110,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/08.jpg',
@@ -29,7 +32,7 @@ class _HomepageState extends State<Homepage> {
       id: 1,
     ),
     product(
-      price: "110",
+      price: 110,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/04.jpg',
@@ -37,7 +40,7 @@ class _HomepageState extends State<Homepage> {
       id: 1,
     ),
     product(
-      price: "110",
+      price: 110,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/05.jpg',
@@ -45,7 +48,7 @@ class _HomepageState extends State<Homepage> {
       id: 1,
     ),
     product(
-      price: "110",
+      price: 110,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/07.jpg',
@@ -53,7 +56,7 @@ class _HomepageState extends State<Homepage> {
       id: 1,
     ),
     product(
-      price: "110",
+      price: 110,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/01.jpg',
@@ -61,7 +64,7 @@ class _HomepageState extends State<Homepage> {
       id: 1,
     ),
     product(
-      price: "110",
+      price: 100,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/09.jpg',
@@ -69,7 +72,7 @@ class _HomepageState extends State<Homepage> {
       id: 1,
     ),
     product(
-      price: "110",
+      price: 110,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/011.jpg',
@@ -77,7 +80,7 @@ class _HomepageState extends State<Homepage> {
       id: 1,
     ),
     product(
-      price: "110",
+      price: 110,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/012.jpg',
@@ -85,7 +88,7 @@ class _HomepageState extends State<Homepage> {
       id: 1,
     ),
     product(
-      price: "110",
+      price: 110,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/014.jpg',
@@ -93,7 +96,7 @@ class _HomepageState extends State<Homepage> {
       id: 1,
     ),
     product(
-      price: "110",
+      price: 110,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/013.jpg',
@@ -101,7 +104,7 @@ class _HomepageState extends State<Homepage> {
       id: 1,
     ),
     product(
-      price: "110",
+      price: 110,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/016.jpg',
@@ -109,7 +112,7 @@ class _HomepageState extends State<Homepage> {
       id: 1,
     ),
     product(
-      price: "110",
+      price: 110,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/015.jpg',
@@ -117,7 +120,7 @@ class _HomepageState extends State<Homepage> {
       id: 1,
     ),
     product(
-      price: "110",
+      price: 100,
       oldprice: "190",
       discount: "40",
       image: 'lib/assets/017.jpg',
@@ -167,7 +170,23 @@ class _HomepageState extends State<Homepage> {
               SizedBox(
                 width: 4,
               ),
-              Icon(Icons.add_shopping_cart),
+              InkWell(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return myproduct();
+                  }));
+                },
+                child: Icon(Icons.add_shopping_cart),
+              ),
+              SizedBox(
+                width: 4,
+              ),
+              Consumer<cartmodel>(
+                builder: (context, cartmodel, child) {
+                  return Text("${cartmodel.count}");
+                },
+              ),
               SizedBox(
                 width: 10,
               ),
@@ -214,145 +233,164 @@ class _HomepageState extends State<Homepage> {
                     childAspectRatio: 0.7,
                   ),
                   itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.5),
-                            blurRadius: 7,
-                            offset: Offset(9.0, 10.0),
+                    return Consumer<cartmodel>(
+                      builder: (context, cartmodel, child) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.5),
+                                blurRadius: 7,
+                                offset: Offset(9.0, 10.0),
+                              ),
+                            ],
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white,
                           ),
-                        ],
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                      ),
-                      width: double.infinity,
-                      margin: EdgeInsets.all(5),
-                      child: Column(
-                        children: [
-                          Expanded(
-                            flex: 7,
-                            child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: Colors.blue,
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            productdata[index].image!),
-                                        fit: BoxFit.fill)),
-                                width: double.infinity,
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(15),
-                                              bottomRight: Radius.circular(15)),
-                                          color: Colors.blue,
+                          width: double.infinity,
+                          margin: EdgeInsets.all(5),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                flex: 7,
+                                child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Colors.blue,
+                                        image: DecorationImage(
+                                            image: AssetImage(
+                                                productdata[index].image!),
+                                            fit: BoxFit.fill)),
+                                    width: double.infinity,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(15),
+                                                  bottomRight:
+                                                      Radius.circular(15)),
+                                              color: Colors.blue,
+                                            ),
+                                            height: 45,
+                                            width: 30,
+                                            child: Column(children: [
+                                              Icon(Icons.bolt,
+                                                  color: Colors.red),
+                                              Text(
+                                                productdata[index].discount!,
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              )
+                                            ])),
+                                        SizedBox(
+                                          width: 20,
                                         ),
-                                        height: 45,
-                                        width: 30,
-                                        child: Column(children: [
-                                          Icon(Icons.bolt, color: Colors.red),
-                                          Text(
-                                            productdata[index].discount!,
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          )
-                                        ])),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Icon(
-                                      Icons.favorite_border,
-                                      color: Colors.white,
-                                    )
-                                  ],
-                                )),
+                                        Icon(
+                                          Icons.favorite_border,
+                                          color: Colors.white,
+                                        )
+                                      ],
+                                    )),
+                              ),
+                              Expanded(
+                                flex: 4,
+                                child: Container(
+                                    margin: EdgeInsets.all(12),
+                                    width: double.infinity,
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          width: double.infinity,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "white Coat for winter ",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15),
+                                              ),
+                                              Text("zara")
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          margin:
+                                              EdgeInsets.only(top: 10, left: 2),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                    "EGP" +
+                                                        productdata[index]
+                                                            .price!
+                                                            .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 10,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                    "EGP" +
+                                                        productdata[index]
+                                                            .oldprice!,
+                                                    style: TextStyle(
+                                                        fontSize: 9,
+                                                        color: Colors.black
+                                                            .withOpacity(0.5),
+                                                        decoration:
+                                                            TextDecoration
+                                                                .lineThrough),
+                                                  ),
+                                                ],
+                                              ),
+                                              Column(
+                                                children: [
+                                                  CircleAvatar(
+                                                    backgroundColor:
+                                                        Colors.blue,
+                                                    radius: 15,
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        cartmodel.add(
+                                                            productdata[index]);
+                                                      },
+                                                      child: Icon(
+                                                        Icons
+                                                            .add_shopping_cart_rounded,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )),
+                              )
+                            ],
                           ),
-                          Expanded(
-                            flex: 4,
-                            child: Container(
-                                margin: EdgeInsets.all(12),
-                                width: double.infinity,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      width: double.infinity,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "white Coat for winter ",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 15),
-                                          ),
-                                          Text("zara")
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(top: 10, left: 2),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Text(
-                                                "EGP" +
-                                                    productdata[index].price!,
-                                                style: TextStyle(
-                                                    fontSize: 10,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Text(
-                                                "EGP" +
-                                                    productdata[index]
-                                                        .oldprice!,
-                                                style: TextStyle(
-                                                    fontSize: 9,
-                                                    color: Colors.black
-                                                        .withOpacity(0.5),
-                                                    decoration: TextDecoration
-                                                        .lineThrough),
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            children: [
-                                              CircleAvatar(
-                                                  backgroundColor: Colors.blue,
-                                                  radius: 15,
-                                                  child: Icon(
-                                                    Icons
-                                                        .add_shopping_cart_rounded,
-                                                    color: Colors.white,
-                                                  ))
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                          )
-                        ],
-                      ),
+                        );
+                      },
                     );
                   }),
             ),
           ),
-          
         ],
       ),
     );
