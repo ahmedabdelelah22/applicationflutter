@@ -5,11 +5,12 @@ import 'model/model.dart';
 import 'profile.dart';
 import 'dart:async';
 import 'dart:io';
-import 'loginpage.dart';
-import 'registerpage.dart';
+import 'authorities/loginpage.dart';
+import 'authorities/registerpage.dart';
 import 'package:provider/provider.dart';
 import 'model/cartmodel.dart';
 import 'myproduct.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,52 +26,66 @@ class MyApp extends StatelessWidget {
         },
         child: MaterialApp(
           theme: ThemeData(
-            primaryColor: Colors.blue.withOpacity(0.3),
+            primaryColor: Colors.white,
           ),
           debugShowCheckedModeBanner: false,
-          home: Test(),
+          home: MyHomePage(),
         ));
   }
 }
 
-class Test extends StatefulWidget {
-  const Test({super.key});
-
+class MyHomePage extends StatefulWidget {
   @override
-  State<Test> createState() => _TestState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _TestState extends State<Test> {
+class _MyHomePageState extends State<MyHomePage> {
+  int _currentIndex = 0;
+
   int selectedindex = 0;
   List<Widget> widgetpages = [
     Homepage(),
     profilpage(),
     myproduct(),
   ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: Colors.blue,
-            unselectedItemColor: Colors.black.withOpacity(0.5),
-            selectedFontSize: 15,
-            selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-            currentIndex: selectedindex,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            onTap: (index) {
-              setState(() {
-                selectedindex = index;
-              });
-            },
-            items: [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: "catgory"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: "my acount"),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_basket), label: "myproduct")
-            ]),
-        body: widgetpages.elementAt(selectedindex));
+        body: widgetpages.elementAt(_currentIndex),
+        bottomNavigationBar: BottomNavyBar(
+          selectedIndex: _currentIndex,
+          showElevation: true,
+          itemCornerRadius: 24,
+          curve: Curves.easeIn,
+          onItemSelected: (index) => setState(() => _currentIndex = index),
+          items: <BottomNavyBarItem>[
+            BottomNavyBarItem(
+              icon: Icon(Icons.home),
+              title: Text('Home'),
+              activeColor: Colors.red,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(Icons.people),
+              title: Text('Users'),
+              activeColor: Colors.purpleAccent,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(Icons.shopping_basket),
+              title: Text(
+                ' products ',
+              ),
+              activeColor: Colors.pink,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(Icons.settings),
+              title: Text('Settings'),
+              activeColor: Colors.blue,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ));
   }
 }

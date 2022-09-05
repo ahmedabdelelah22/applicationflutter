@@ -31,7 +31,7 @@ class _profilpageState extends State<profilpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black.withOpacity(0.5),
+        backgroundColor: Colors.blue.withOpacity(0.5),
         title: Text(
           "profile",
           style: TextStyle(fontSize: 20, color: Colors.white),
@@ -62,7 +62,7 @@ class _profilpageState extends State<profilpage> {
             Container(
                 height: double.infinity,
                 width: double.infinity,
-                color: Colors.black.withOpacity(0.5),
+                color: Colors.blue.withOpacity(0.5),
                 child: Container(
                   alignment: Alignment.topCenter,
                   child: image == null
@@ -348,7 +348,7 @@ class _profilpageState extends State<profilpage> {
                 width: 110,
                 height: 110,
                 decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(50)),
                 child: image == null
                     ? Column(
@@ -356,13 +356,13 @@ class _profilpageState extends State<profilpage> {
                         children: [
                           Text(
                             "add photo",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            style: TextStyle(color: Colors.blue, fontSize: 20),
                           ),
                           IconButton(
                               onPressed: uploadImage,
                               icon: Icon(
                                 Icons.add_a_photo,
-                                color: Colors.white,
+                                color: Colors.blue,
                                 size: 30,
                               ))
                         ],

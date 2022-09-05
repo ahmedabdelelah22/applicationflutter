@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'Homepage.dart';
-import 'registerpage.dart';
+import 'loginpage.dart';
+import '../Homepage.dart';
 
-class loginpage extends StatefulWidget {
-  const loginpage({super.key});
+class Registerpage extends StatefulWidget {
+  const Registerpage({super.key});
 
   @override
-  State<loginpage> createState() => _loginpageState();
+  State<Registerpage> createState() => _RegisterpageState();
 }
 
-class _loginpageState extends State<loginpage> {
+class _RegisterpageState extends State<Registerpage> {
   bool showpass = true;
   bool accpetrights = false;
   GlobalKey<FormState> formstate = new GlobalKey<FormState>();
@@ -34,23 +34,23 @@ class _loginpageState extends State<loginpage> {
                       child: Image.asset('lib/assets/2000.png'),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 15,
                     ),
                     Container(
                       child: Row(
                         children: [
                           Text(
-                            "Login ",
+                            "Register ",
                             style: TextStyle(
-                                fontSize: 28,
+                                fontSize: 25,
                                 color: Color.fromARGB(255, 116, 116, 116)),
                           ),
                           Container(
-                              margin: EdgeInsets.only(top: 7),
+                              margin: EdgeInsets.only(top: 6),
                               child: Text(
                                 "now to see our produts",
                                 style: TextStyle(
-                                    fontSize: 16.5,
+                                    fontSize: 15,
                                     color: Color.fromARGB(255, 116, 116, 116)),
                               ))
                         ],
@@ -67,8 +67,76 @@ class _loginpageState extends State<loginpage> {
                         return null;
                       },
                       decoration: InputDecoration(
-                        labelText: "Type userName or Email",
+                        labelText: "Type name",
                         prefixIcon: Icon(Icons.person),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(color: Colors.blue, width: 3),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(color: Colors.blue, width: 3),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(color: Colors.red, width: 3),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                          borderSide: BorderSide(color: Colors.red, width: 3),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                        validator: (text) {
+                          if (text!.isEmpty) {
+                            return " your name is required";
+                          }
+                          return null;
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          labelText: "Type Email",
+                          prefixIcon: Icon(Icons.email),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Colors.blue,
+                              width: 3,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide:
+                                BorderSide(color: Colors.blue, width: 3),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Colors.red, width: 3),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Colors.red, width: 3),
+                          ),
+                        )),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    TextFormField(
+                      validator: (text) {
+                        if (text!.length <= 17) {
+                          return " your phone number incorrect";
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.number,
+                      initialValue: " +20 | ",
+                      decoration: InputDecoration(
+                        labelText: "Type phone number",
+                        prefixIcon: Icon(Icons.call),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: BorderSide(color: Colors.blue, width: 3),
@@ -99,7 +167,7 @@ class _loginpageState extends State<loginpage> {
                       },
                       obscureText: showpass,
                       decoration: InputDecoration(
-                        labelText: "Type bassword ",
+                        labelText: "type bassword ",
                         prefixIcon: Icon(
                           Icons.lock,
                         ),
@@ -131,7 +199,7 @@ class _loginpageState extends State<loginpage> {
                       ),
                     ),
                     SizedBox(
-                      height: 17,
+                      height: 10,
                     ),
                     Row(
                       children: [
@@ -143,28 +211,12 @@ class _loginpageState extends State<loginpage> {
                               });
                             }),
                         Text(
-                          "Remember me",
+                          "Agree with terms & condition",
                           style: TextStyle(
                               color: Color.fromARGB(255, 116, 116, 116),
                               fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          width: 40,
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Container(
-                              padding: EdgeInsets.only(left: 0),
-                              child: Text(
-                                "Forgest password ?",
-                                style: TextStyle(
-                                    fontSize: 17, fontWeight: FontWeight.bold),
-                              )),
                         )
                       ],
-                    ),
-                    SizedBox(
-                      height: 17,
                     ),
                     Container(
                       child: MaterialButton(
@@ -182,7 +234,7 @@ class _loginpageState extends State<loginpage> {
                           }
                         },
                         child: Text(
-                          "Login",
+                          "Register",
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -218,37 +270,13 @@ class _loginpageState extends State<loginpage> {
                       ],
                     ),
                     SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: AssetImage('lib/assets/1.jpg'),
-                          radius: 30,
-                        ),
-                        CircleAvatar(
-                          backgroundImage: AssetImage('lib/assets/3.jpg'),
-                          radius: 30,
-                        ),
-                        CircleAvatar(
-                          backgroundImage: AssetImage('lib/assets/4.jpg'),
-                          radius: 30,
-                        ),
-                        CircleAvatar(
-                          backgroundImage: AssetImage('lib/assets/2.jpg'),
-                          radius: 30,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
+                      height: 0,
                     ),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Don't have an acount ?",
+                          Text("Already have an acount ?",
                               style: TextStyle(
                                   color: Color.fromARGB(255, 139, 139, 139),
                                   fontSize: 15,
@@ -257,17 +285,16 @@ class _loginpageState extends State<loginpage> {
                             onPressed: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return Registerpage();
+                                return loginpage();
                               }));
                             },
                             child: Container(
                                 padding: EdgeInsets.only(left: 0),
                                 child: Text(
-                                  "Register",
+                                  "Login",
                                   style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold),
                                 )),
                           )
                         ],

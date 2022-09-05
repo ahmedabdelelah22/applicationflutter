@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'loginpage.dart';
-import 'Homepage.dart';
+import '../Homepage.dart';
+import 'registerpage.dart';
 
-class Registerpage extends StatefulWidget {
-  const Registerpage({super.key});
+class loginpage extends StatefulWidget {
+  const loginpage({super.key});
 
   @override
-  State<Registerpage> createState() => _RegisterpageState();
+  State<loginpage> createState() => _loginpageState();
 }
 
-class _RegisterpageState extends State<Registerpage> {
+class _loginpageState extends State<loginpage> {
   bool showpass = true;
   bool accpetrights = false;
   GlobalKey<FormState> formstate = new GlobalKey<FormState>();
@@ -34,23 +34,23 @@ class _RegisterpageState extends State<Registerpage> {
                       child: Image.asset('lib/assets/2000.png'),
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 20,
                     ),
                     Container(
                       child: Row(
                         children: [
                           Text(
-                            "Register ",
+                            "Login ",
                             style: TextStyle(
-                                fontSize: 25,
+                                fontSize: 28,
                                 color: Color.fromARGB(255, 116, 116, 116)),
                           ),
                           Container(
-                              margin: EdgeInsets.only(top: 6),
+                              margin: EdgeInsets.only(top: 7),
                               child: Text(
                                 "now to see our produts",
                                 style: TextStyle(
-                                    fontSize: 15,
+                                    fontSize: 16.5,
                                     color: Color.fromARGB(255, 116, 116, 116)),
                               ))
                         ],
@@ -67,76 +67,8 @@ class _RegisterpageState extends State<Registerpage> {
                         return null;
                       },
                       decoration: InputDecoration(
-                        labelText: "Type name",
+                        labelText: "Type userName or Email",
                         prefixIcon: Icon(Icons.person),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: Colors.blue, width: 3),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: Colors.blue, width: 3),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: Colors.red, width: 3),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(color: Colors.red, width: 3),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextFormField(
-                        validator: (text) {
-                          if (text!.isEmpty) {
-                            return " your name is required";
-                          }
-                          return null;
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: "Type Email",
-                          prefixIcon: Icon(Icons.email),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(
-                              color: Colors.blue,
-                              width: 3,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide:
-                                BorderSide(color: Colors.blue, width: 3),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(color: Colors.red, width: 3),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(color: Colors.red, width: 3),
-                          ),
-                        )),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    TextFormField(
-                      validator: (text) {
-                        if (text!.length <= 17) {
-                          return " your phone number incorrect";
-                        }
-                        return null;
-                      },
-                      keyboardType: TextInputType.number,
-                      initialValue: " +20 | ",
-                      decoration: InputDecoration(
-                        labelText: "Type phone number",
-                        prefixIcon: Icon(Icons.call),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(15),
                           borderSide: BorderSide(color: Colors.blue, width: 3),
@@ -167,7 +99,7 @@ class _RegisterpageState extends State<Registerpage> {
                       },
                       obscureText: showpass,
                       decoration: InputDecoration(
-                        labelText: "type bassword ",
+                        labelText: "Type bassword ",
                         prefixIcon: Icon(
                           Icons.lock,
                         ),
@@ -199,7 +131,7 @@ class _RegisterpageState extends State<Registerpage> {
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 17,
                     ),
                     Row(
                       children: [
@@ -211,12 +143,28 @@ class _RegisterpageState extends State<Registerpage> {
                               });
                             }),
                         Text(
-                          "Agree with terms & condition",
+                          "Remember me",
                           style: TextStyle(
                               color: Color.fromARGB(255, 116, 116, 116),
                               fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          width: 40,
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Container(
+                              padding: EdgeInsets.only(left: 0),
+                              child: Text(
+                                "Forgest password ?",
+                                style: TextStyle(
+                                    fontSize: 17, fontWeight: FontWeight.bold),
+                              )),
                         )
                       ],
+                    ),
+                    SizedBox(
+                      height: 17,
                     ),
                     Container(
                       child: MaterialButton(
@@ -234,7 +182,7 @@ class _RegisterpageState extends State<Registerpage> {
                           }
                         },
                         child: Text(
-                          "Register",
+                          "Login",
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -270,13 +218,37 @@ class _RegisterpageState extends State<Registerpage> {
                       ],
                     ),
                     SizedBox(
-                      height: 0,
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: AssetImage('lib/assets/1.jpg'),
+                          radius: 30,
+                        ),
+                        CircleAvatar(
+                          backgroundImage: AssetImage('lib/assets/3.jpg'),
+                          radius: 30,
+                        ),
+                        CircleAvatar(
+                          backgroundImage: AssetImage('lib/assets/4.jpg'),
+                          radius: 30,
+                        ),
+                        CircleAvatar(
+                          backgroundImage: AssetImage('lib/assets/2.jpg'),
+                          radius: 30,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
                     ),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Already have an acount ?",
+                          Text("Don't have an acount ?",
                               style: TextStyle(
                                   color: Color.fromARGB(255, 139, 139, 139),
                                   fontSize: 15,
@@ -285,16 +257,17 @@ class _RegisterpageState extends State<Registerpage> {
                             onPressed: () {
                               Navigator.of(context)
                                   .push(MaterialPageRoute(builder: (context) {
-                                return loginpage();
+                                return Registerpage();
                               }));
                             },
                             child: Container(
                                 padding: EdgeInsets.only(left: 0),
                                 child: Text(
-                                  "Login",
+                                  "Register",
                                   style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 )),
                           )
                         ],
