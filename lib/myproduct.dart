@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'Homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,11 +17,42 @@ class _myproductState extends State<myproduct> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          centerTitle: true,
-          automaticallyImplyLeading: true,
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.blue.withOpacity(0.3),
-          title: Text("my product"),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: Icon(Icons.keyboard_arrow_left),
+              ),
+              Text(
+                "Fashion",
+                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 5),
+                child: Text("design",
+                    style: TextStyle(color: Colors.red, fontSize: 16)),
+              ),
+            ],
+          ),
           actions: [
+            CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 12,
+              child: Icon(
+                Icons.shopping_basket_rounded,
+                color: Colors.red,
+                size: 15,
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
             Consumer<cartmodel>(builder: (context, cartmodel, child) {
               return Center(
                   child: Text("Total : " + cartmodel.totalprice.toString()));
@@ -34,6 +64,7 @@ class _myproductState extends State<myproduct> {
         ),
         body: Consumer<cartmodel>(builder: (context, cartmodel, child) {
           return Container(
+            color: Colors.black.withOpacity(0.1),
             padding: EdgeInsets.all(10),
             child: ListView.builder(
               itemCount: cartmodel.basketproduct.length,
@@ -47,26 +78,55 @@ class _myproductState extends State<myproduct> {
                             child: Container(
                                 height: 100,
                                 child: Image.asset(
-                                    cartmodel.basketproduct[index].image!))),
+                                  cartmodel.basketproduct[index].image!,
+                                  fit: BoxFit.fill,
+                                ))),
                         Expanded(
                           flex: 3,
                           child: ListTile(
-                            title: Text("EGP" +
-                                cartmodel.basketproduct[index].price
-                                    .toString()),
-                            subtitle: Text(
-                              "EGP" +
-                                  cartmodel.basketproduct[index].oldprice
-                                      .toString(),
-                              style: TextStyle(
-                                  decoration: TextDecoration.lineThrough),
+                            title: Text(
+                              "white Coat for winter ",
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.black),
                             ),
-                            trailing: IconButton(
-                              icon: Icon(Icons.remove_circle),
-                              onPressed: () {
-                                cartmodel
-                                    .remove(cartmodel.basketproduct[index]);
-                              },
+                            subtitle: Container(
+                              margin: EdgeInsets.only(top: 5),
+                              alignment: Alignment.centerLeft,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "EGP" +
+                                        cartmodel.basketproduct[index].price
+                                            .toString(),
+                                    style: TextStyle(
+                                        fontSize: 14, color: Colors.black),
+                                  ),
+                                  Text(
+                                    "EGP" +
+                                        cartmodel.basketproduct[index].oldprice
+                                            .toString(),
+                                    style: TextStyle(
+                                        decoration: TextDecoration.lineThrough),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            trailing: CircleAvatar(
+                              radius: 19,
+                              backgroundColor:
+                                  Color.fromARGB(255, 223, 224, 224),
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.remove_shopping_cart_rounded,
+                                  color: Color.fromARGB(255, 233, 7, 7),
+                                  size: 23,
+                                ),
+                                onPressed: () {
+                                  cartmodel
+                                      .remove(cartmodel.basketproduct[index]);
+                                },
+                              ),
                             ),
                           ),
                         ),

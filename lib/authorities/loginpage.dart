@@ -1,3 +1,4 @@
+import 'package:application_test/main.dart';
 import 'package:flutter/material.dart';
 import '../Homepage.dart';
 import 'registerpage.dart';
@@ -177,7 +178,7 @@ class _loginpageState extends State<loginpage> {
                           if (formstate.currentState!.validate()) {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (context) {
-                              return Homepage();
+                              return MyHomePage();
                             }));
                           }
                         },

@@ -1,3 +1,4 @@
+import 'package:application_test/settingpage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'Homepage.dart';
@@ -11,6 +12,10 @@ import 'package:provider/provider.dart';
 import 'model/cartmodel.dart';
 import 'myproduct.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:http/http.dart';
+import 'dart:convert';
+import 'package:dio/dio.dart';
+import 'apimodel.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,7 +34,7 @@ class MyApp extends StatelessWidget {
             primaryColor: Colors.white,
           ),
           debugShowCheckedModeBanner: false,
-          home: MyHomePage(),
+          home: loginpage(),
         ));
   }
 }
@@ -47,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Homepage(),
     profilpage(),
     myproduct(),
+    settingpage()
   ];
   @override
   Widget build(BuildContext context) {

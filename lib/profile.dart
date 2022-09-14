@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
@@ -31,29 +33,51 @@ class _profilpageState extends State<profilpage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue.withOpacity(0.5),
-        title: Text(
-          "profile",
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        ),
-        centerTitle: true,
+        automaticallyImplyLeading: false,
         elevation: 0,
+        backgroundColor: Color.fromARGB(255, 75, 111, 139),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            InkWell(
+              onTap: () {},
+              child: Icon(Icons.keyboard_arrow_left),
+            ),
+            Text(
+              "Fashion",
+              style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 5),
+              child: Text("design",
+                  style: TextStyle(color: Colors.red, fontSize: 16)),
+            ),
+          ],
+        ),
         actions: [
           TextButton(
               onPressed: () {},
-              child: Text(
-                "save",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+              child: Row(
+                children: [
+                  Text(
+                    "save",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 255, 255, 254),
+                        fontSize: 20),
+                  ),
+                  SizedBox(
+                    width: 2,
+                  ),
+                  Icon(
+                    Icons.vertical_align_bottom,
+                    color: Color.fromARGB(255, 245, 121, 39),
+                  ),
+                ],
               )),
         ],
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.keyboard_arrow_left,
-            color: Colors.white,
-            size: 30,
-          ),
-        ),
       ),
       body: Container(
         child: Stack(
@@ -62,11 +86,32 @@ class _profilpageState extends State<profilpage> {
             Container(
                 height: double.infinity,
                 width: double.infinity,
-                color: Colors.blue.withOpacity(0.5),
+                color: Color.fromARGB(255, 75, 111, 139),
                 child: Container(
                   alignment: Alignment.topCenter,
                   child: image == null
-                      ? Text("don't have photo")
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 30),
+                              child: Text(
+                                "add cover photo",
+                                style:
+                                    TextStyle(fontSize: 20, color: Colors.blue),
+                              ),
+                            ),
+                            Container(
+                              child: IconButton(
+                                  onPressed: uploadImage,
+                                  icon: Icon(
+                                    Icons.add_a_photo,
+                                    color: Colors.blueAccent,
+                                    size: 60,
+                                  )),
+                            ),
+                          ],
+                        )
                       : Image.file(
                           image!,
                           fit: BoxFit.fill,
@@ -82,19 +127,6 @@ class _profilpageState extends State<profilpage> {
                   backgroundColor: Colors.white,
                   radius: 70,
                 ),
-              ),
-            ),
-            Positioned(
-              top: 10,
-              left: 155,
-              child: Container(
-                child: IconButton(
-                    onPressed: uploadImage,
-                    icon: Icon(
-                      Icons.add_a_photo,
-                      color: Colors.blueAccent,
-                      size: 60,
-                    )),
               ),
             ),
             Container(
@@ -120,37 +152,86 @@ class _profilpageState extends State<profilpage> {
                             SizedBox(
                               height: 50,
                             ),
-                            TextFormField(
-                              validator: (text) {
-                                if (text!.isEmpty) {
-                                  return " your name is required";
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                labelText: "Type name",
-                                prefixIcon: Icon(Icons.person),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide:
-                                      BorderSide(color: Colors.blue, width: 3),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: TextFormField(
+                                    validator: (text) {
+                                      if (text!.isEmpty) {
+                                        return " your name is required";
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.black.withOpacity(0.3),
+                                      labelText: "first name",
+                                      prefixIcon: Icon(Icons.person),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide(
+                                            color: Colors.white, width: 3),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide(
+                                            color: Colors.white, width: 3),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide(
+                                            color: Colors.white, width: 3),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide(
+                                            color: Colors.white, width: 3),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide:
-                                      BorderSide(color: Colors.blue, width: 3),
+                                SizedBox(
+                                  width: 15,
                                 ),
-                                errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide:
-                                      BorderSide(color: Colors.red, width: 3),
+                                Expanded(
+                                  flex: 1,
+                                  child: TextFormField(
+                                    validator: (text) {
+                                      if (text!.isEmpty) {
+                                        return " your name is required";
+                                      }
+                                      return null;
+                                    },
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.black.withOpacity(0.3),
+                                      labelText: "last name",
+                                      prefixIcon: Icon(Icons.person),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide(
+                                            color: Colors.white, width: 3),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide(
+                                            color: Colors.white, width: 3),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide(
+                                            color: Colors.white, width: 3),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        borderSide: BorderSide(
+                                            color: Colors.white, width: 3),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide:
-                                      BorderSide(color: Colors.red, width: 3),
-                                ),
-                              ),
+                              ],
                             ),
                             SizedBox(
                               height: 20,
@@ -164,29 +245,31 @@ class _profilpageState extends State<profilpage> {
                                 },
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.black.withOpacity(0.3),
                                   labelText: "Type Email",
                                   prefixIcon: Icon(Icons.email),
                                   enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(30),
                                     borderSide: BorderSide(
-                                      color: Colors.blue,
+                                      color: Colors.white,
                                       width: 3,
                                     ),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(30),
                                     borderSide: BorderSide(
-                                        color: Colors.blue, width: 3),
+                                        color: Colors.white, width: 3),
                                   ),
                                   errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                    borderSide:
-                                        BorderSide(color: Colors.red, width: 3),
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 3),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                    borderSide:
-                                        BorderSide(color: Colors.red, width: 3),
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 3),
                                   ),
                                 )),
                             SizedBox(
@@ -202,27 +285,28 @@ class _profilpageState extends State<profilpage> {
                               keyboardType: TextInputType.number,
                               initialValue: " +20 | ",
                               decoration: InputDecoration(
-                                labelText: "Type phone number",
+                                filled: true,
+                                fillColor: Colors.black.withOpacity(0.3),
                                 prefixIcon: Icon(Icons.call),
                                 enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(30),
                                   borderSide:
-                                      BorderSide(color: Colors.blue, width: 3),
+                                      BorderSide(color: Colors.white, width: 3),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(30),
                                   borderSide:
-                                      BorderSide(color: Colors.blue, width: 3),
+                                      BorderSide(color: Colors.white, width: 3),
                                 ),
                                 errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(30),
                                   borderSide:
-                                      BorderSide(color: Colors.red, width: 3),
+                                      BorderSide(color: Colors.white, width: 3),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(30),
                                   borderSide:
-                                      BorderSide(color: Colors.red, width: 3),
+                                      BorderSide(color: Colors.white, width: 3),
                                 ),
                               ),
                             ),
@@ -238,6 +322,8 @@ class _profilpageState extends State<profilpage> {
                               },
                               obscureText: showpass,
                               decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.black.withOpacity(0.3),
                                 labelText: "type bassword ",
                                 prefixIcon: Icon(
                                   Icons.lock,
@@ -252,22 +338,22 @@ class _profilpageState extends State<profilpage> {
                                         ? (Icons.visibility_off)
                                         : (Icons.visibility))),
                                 enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(30),
                                   borderSide:
-                                      BorderSide(color: Colors.blue, width: 3),
+                                      BorderSide(color: Colors.white, width: 3),
                                 ),
                                 errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(30),
                                     borderSide: BorderSide(
-                                        color: Colors.red, width: 3)),
+                                        color: Colors.white, width: 3)),
                                 focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(30),
                                     borderSide: BorderSide(
-                                        color: Colors.blue, width: 3)),
+                                        color: Colors.white, width: 3)),
                                 focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(30),
                                   borderSide:
-                                      BorderSide(color: Colors.red, width: 3),
+                                      BorderSide(color: Colors.white, width: 3),
                                 ),
                               ),
                             ),
@@ -291,48 +377,62 @@ class _profilpageState extends State<profilpage> {
                                 )
                               ],
                             ),
-                            Container(
-                              child: MaterialButton(
-                                minWidth: 250,
-                                height: 45,
-                                elevation: 5,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                onPressed: () {
-                                  if (formstate.currentState!.validate()) {}
-                                },
-                                child: Text(
-                                  "Creat profial",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    child: MaterialButton(
+                                      minWidth: 250,
+                                      height: 45,
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      onPressed: () {
+                                        if (formstate.currentState!
+                                            .validate()) {}
+                                      },
+                                      child: Text(
+                                        "Creat profial",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      ),
+                                      color: Colors.blue.withOpacity(0.8),
+                                    ),
+                                  ),
                                 ),
-                                color: Colors.blue.withOpacity(0.8),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Container(
-                              child: MaterialButton(
-                                minWidth: 250,
-                                height: 45,
-                                elevation: 5,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                onPressed: () {
-                                  if (formstate.currentState!.validate()) {}
-                                },
-                                child: Text(
-                                  "Cancel",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
+                                SizedBox(
+                                  width: 20,
                                 ),
-                                color: Colors.red.withOpacity(0.8),
-                              ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                    child: MaterialButton(
+                                      minWidth: 250,
+                                      height: 45,
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      onPressed: () {
+                                        if (formstate.currentState!
+                                            .validate()) {}
+                                      },
+                                      child: Text(
+                                        "Cancel",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20),
+                                      ),
+                                      color: Colors.red.withOpacity(0.8),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
