@@ -16,6 +16,8 @@ import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'apimodel.dart';
+import 'model/homemodelapi.dart';
+import 'homepageapi.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int selectedindex = 0;
   List<Widget> widgetpages = [
-    Homepage(),
+    homepageapi(),
     profilpage(),
     myproduct(),
     settingpage()
