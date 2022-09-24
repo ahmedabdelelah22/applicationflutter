@@ -44,7 +44,7 @@ class _profilpageState extends State<profilpage> {
               child: Icon(Icons.keyboard_arrow_left),
             ),
             Text(
-              "Fashion",
+              "Profile",
               style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
             ),
             SizedBox(
@@ -150,7 +150,7 @@ class _profilpageState extends State<profilpage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 50,
+                              height: 15,
                             ),
                             Row(
                               children: [

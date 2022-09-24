@@ -18,6 +18,7 @@ import 'package:dio/dio.dart';
 import 'apimodel.dart';
 import 'model/homemodelapi.dart';
 import 'homepageapi.dart';
+import './model/registermodel.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primaryColor: Colors.white,
           ),
+          debugShowMaterialGrid: false,
           debugShowCheckedModeBanner: false,
           home: loginpage(),
         ));
@@ -52,9 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int selectedindex = 0;
   List<Widget> widgetpages = [
     homepageapi(),
-    profilpage(),
+    settingpage(),
     myproduct(),
-    settingpage()
+    profilpage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -74,9 +76,9 @@ class _MyHomePageState extends State<MyHomePage> {
               textAlign: TextAlign.center,
             ),
             BottomNavyBarItem(
-              icon: Icon(Icons.people),
-              title: Text('Users'),
-              activeColor: Colors.purpleAccent,
+              icon: Icon(Icons.favorite),
+              title: Text('category'),
+              activeColor: Colors.blue,
               textAlign: TextAlign.center,
             ),
             BottomNavyBarItem(
@@ -88,9 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
               textAlign: TextAlign.center,
             ),
             BottomNavyBarItem(
-              icon: Icon(Icons.settings),
-              title: Text('Settings'),
-              activeColor: Colors.blue,
+              icon: Icon(Icons.people),
+              title: Text('Users'),
+              activeColor: Colors.purpleAccent,
               textAlign: TextAlign.center,
             ),
           ],

@@ -364,10 +364,7 @@ class _HomepageState extends State<Homepage> {
                                                         Colors.blue,
                                                     radius: 15,
                                                     child: InkWell(
-                                                      onTap: () {
-                                                        cartmodel.add(
-                                                            productdata[index]);
-                                                      },
+                                                      onTap: () {},
                                                       child: Icon(
                                                         Icons
                                                             .add_shopping_cart_rounded,

@@ -1,6 +1,10 @@
+import 'package:application_test/main.dart';
 import 'package:flutter/material.dart';
 import 'loginpage.dart';
 import '../Homepage.dart';
+import '../model/cartmodel.dart';
+import 'package:provider/provider.dart';
+import '../model/registermodel.dart';
 
 class Registerpage extends StatefulWidget {
   const Registerpage({super.key});
@@ -10,9 +14,15 @@ class Registerpage extends StatefulWidget {
 }
 
 class _RegisterpageState extends State<Registerpage> {
+  TextEditingController namecontroller = new TextEditingController();
+  TextEditingController emailcontroller = new TextEditingController();
+  TextEditingController phonecontroller = new TextEditingController();
+  TextEditingController passwordcontroller = new TextEditingController();
+
   bool showpass = true;
   bool accpetrights = false;
   GlobalKey<FormState> formstate = new GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,13 +38,17 @@ class _RegisterpageState extends State<Registerpage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 50,
+                      height: 20,
                     ),
                     Container(
-                      child: Image.asset('lib/assets/2000.png'),
+                      child: Image.asset(
+                        'images/3000.png',
+                        width: 200,
+                        height: 200,
+                      ),
                     ),
                     SizedBox(
-                      height: 15,
+                      height: 0,
                     ),
                     Container(
                       child: Row(
@@ -60,6 +74,7 @@ class _RegisterpageState extends State<Registerpage> {
                       height: 20,
                     ),
                     TextFormField(
+                      controller: namecontroller,
                       validator: (text) {
                         if (text!.isEmpty) {
                           return " your name is required";
@@ -91,6 +106,7 @@ class _RegisterpageState extends State<Registerpage> {
                       height: 20,
                     ),
                     TextFormField(
+                        controller: emailcontroller,
                         validator: (text) {
                           if (text!.isEmpty) {
                             return " your name is required";
@@ -126,14 +142,14 @@ class _RegisterpageState extends State<Registerpage> {
                       height: 30,
                     ),
                     TextFormField(
+                      controller: phonecontroller,
                       validator: (text) {
-                        if (text!.length <= 17) {
+                        if (text!.length == 12) {
                           return " your phone number incorrect";
                         }
                         return null;
                       },
                       keyboardType: TextInputType.number,
-                      initialValue: " +20 | ",
                       decoration: InputDecoration(
                         labelText: "Type phone number",
                         prefixIcon: Icon(Icons.call),
@@ -159,6 +175,7 @@ class _RegisterpageState extends State<Registerpage> {
                       height: 30,
                     ),
                     TextFormField(
+                      controller: passwordcontroller,
                       validator: (text) {
                         if (text!.length < 9) {
                           return " your password less than 9 characters";
@@ -218,31 +235,53 @@ class _RegisterpageState extends State<Registerpage> {
                         )
                       ],
                     ),
-                    Container(
-                      child: MaterialButton(
-                        minWidth: 250,
-                        height: 45,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        onPressed: () {
-                          if (formstate.currentState!.validate()) {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return Homepage();
-                            }));
-                          }
-                        },
-                        child: Text(
-                          "Register",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
+                    Consumer<cartmodel>(builder: (context, regprov, child) {
+                      return Container(
+                        child: MaterialButton(
+                          minWidth: 250,
+                          height: 45,
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)),
+                          onPressed: () {
+                            if (formstate.currentState!.validate()) {
+                              regprov
+                                  .register(
+                                name: namecontroller.text,
+                                email: emailcontroller.text,
+                                phone: phonecontroller.text,
+                                password: passwordcontroller.text,
+                              )
+                                  .then((value) {
+                                if (regprov.Rgistermodel!.status == false) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(regprov.Rgistermodel!.message!
+                                        .toString()),
+                                    duration: Duration(seconds: 1),
+                                    backgroundColor: Colors.blue,
+                                  ));
+                                } else {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MyHomePage()));
+                                }
+                                print("value " + value.toString());
+                              });
+                            }
+                          },
+                          child: Text(
+                            "Register",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                          color: Colors.blue.withOpacity(0.8),
                         ),
-                        color: Colors.blue.withOpacity(0.8),
-                      ),
-                    ),
+                      );
+                    }),
                     SizedBox(
                       height: 15,
                     ),

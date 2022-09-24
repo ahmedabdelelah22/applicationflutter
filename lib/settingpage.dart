@@ -23,8 +23,49 @@ class _settingpageState extends State<settingpage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Category"),
-          centerTitle: true,
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.blue.withOpacity(0.3),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {},
+                child: Icon(Icons.keyboard_arrow_left),
+              ),
+              Text(
+                "Category",
+                style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 5),
+                child: Text("design",
+                    style: TextStyle(color: Colors.red, fontSize: 16)),
+              ),
+            ],
+          ),
+          actions: [
+            Row(
+              children: [
+                Icon(Icons.search),
+                SizedBox(
+                  width: 4,
+                ),
+                Icon(
+                  Icons.access_alarm,
+                  color: Colors.red,
+                ),
+                SizedBox(
+                  width: 4,
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 15,
+            )
+          ],
         ),
         body: Consumer<cartmodel>(builder: (context, cartmodel, child) {
           return cartmodel.category == null

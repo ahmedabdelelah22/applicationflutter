@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:application_test/homepageapi.dart';
+
 import 'Homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,11 +25,13 @@ class _myproductState extends State<myproduct> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
                 child: Icon(Icons.keyboard_arrow_left),
               ),
               Text(
-                "Fashion",
+                "Myproduct",
                 style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
               ),
               SizedBox(
@@ -63,80 +67,89 @@ class _myproductState extends State<myproduct> {
           ],
         ),
         body: Consumer<cartmodel>(builder: (context, cartmodel, child) {
-          return Container(
-            color: Colors.black.withOpacity(0.1),
-            padding: EdgeInsets.all(10),
-            child: ListView.builder(
-              itemCount: cartmodel.basketproduct.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Expanded(
-                  child: Card(
-                    child: Row(
-                      children: [
-                        Expanded(
-                            flex: 1,
-                            child: Container(
-                                height: 100,
-                                child: Image.asset(
-                                  cartmodel.basketproduct[index].image!,
-                                  fit: BoxFit.fill,
-                                ))),
-                        Expanded(
-                          flex: 3,
-                          child: ListTile(
-                            title: Text(
-                              "white Coat for winter ",
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.black),
-                            ),
-                            subtitle: Container(
-                              margin: EdgeInsets.only(top: 5),
-                              alignment: Alignment.centerLeft,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "EGP" +
-                                        cartmodel.basketproduct[index].price
-                                            .toString(),
+          return cartmodel.basketproduct == null
+              ? Center(
+                  child: CircularProgressIndicator(color: Colors.blue),
+                )
+              : Container(
+                  color: Colors.black.withOpacity(0.1),
+                  padding: EdgeInsets.all(10),
+                  child: ListView.builder(
+                    itemCount: cartmodel.basketproduct.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Expanded(
+                        child: Card(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                      height: 100,
+                                      child: Image.network(
+                                        cartmodel.basketproduct[index].image!,
+                                        fit: BoxFit.fill,
+                                      ))),
+                              Expanded(
+                                flex: 3,
+                                child: ListTile(
+                                  title: Text(
+                                    "white Coat for winter ",
                                     style: TextStyle(
-                                        fontSize: 14, color: Colors.black),
+                                        fontSize: 18, color: Colors.black),
                                   ),
-                                  Text(
-                                    "EGP" +
-                                        cartmodel.basketproduct[index].oldprice
-                                            .toString(),
-                                    style: TextStyle(
-                                        decoration: TextDecoration.lineThrough),
+                                  subtitle: Container(
+                                    margin: EdgeInsets.only(top: 5),
+                                    alignment: Alignment.centerLeft,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "EGP" +
+                                              cartmodel
+                                                  .basketproduct[index].price
+                                                  .toString(),
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black),
+                                        ),
+                                        Text(
+                                          "EGP" +
+                                              cartmodel
+                                                  .basketproduct[index].oldPrice
+                                                  .toString(),
+                                          style: TextStyle(
+                                              decoration:
+                                                  TextDecoration.lineThrough),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ],
-                              ),
-                            ),
-                            trailing: CircleAvatar(
-                              radius: 19,
-                              backgroundColor:
-                                  Color.fromARGB(255, 223, 224, 224),
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.remove_shopping_cart_rounded,
-                                  color: Color.fromARGB(255, 233, 7, 7),
-                                  size: 23,
+                                  trailing: CircleAvatar(
+                                    radius: 19,
+                                    backgroundColor:
+                                        Color.fromARGB(255, 223, 224, 224),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.remove_shopping_cart_rounded,
+                                        color: Color.fromARGB(255, 233, 7, 7),
+                                        size: 23,
+                                      ),
+                                      onPressed: () {
+                                        cartmodel.remove(
+                                            cartmodel.basketproduct[index]);
+                                      },
+                                    ),
+                                  ),
                                 ),
-                                onPressed: () {
-                                  cartmodel
-                                      .remove(cartmodel.basketproduct[index]);
-                                },
                               ),
-                            ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 );
-              },
-            ),
-          );
         }));
   }
 }

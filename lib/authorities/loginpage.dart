@@ -1,6 +1,8 @@
 import 'package:application_test/main.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../Homepage.dart';
+import '../model/cartmodel.dart';
 import 'registerpage.dart';
 
 class loginpage extends StatefulWidget {
@@ -11,6 +13,9 @@ class loginpage extends StatefulWidget {
 }
 
 class _loginpageState extends State<loginpage> {
+  TextEditingController emailcontroller = new TextEditingController();
+  TextEditingController passwordcontroller = new TextEditingController();
+
   bool showpass = true;
   bool accpetrights = false;
   GlobalKey<FormState> formstate = new GlobalKey<FormState>();
@@ -29,13 +34,17 @@ class _loginpageState extends State<loginpage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 50,
+                      height: 20,
                     ),
                     Container(
-                      child: Image.asset('lib/assets/2000.png'),
+                      child: Image.asset(
+                        'images/3000.png',
+                        width: 200,
+                        height: 200,
+                      ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 0,
                     ),
                     Container(
                       child: Row(
@@ -61,6 +70,7 @@ class _loginpageState extends State<loginpage> {
                       height: 20,
                     ),
                     TextFormField(
+                      controller: emailcontroller,
                       validator: (text) {
                         if (text!.isEmpty) {
                           return " your name is required";
@@ -92,6 +102,7 @@ class _loginpageState extends State<loginpage> {
                       height: 30,
                     ),
                     TextFormField(
+                      controller: passwordcontroller,
                       validator: (text) {
                         if (text!.length < 9) {
                           return " your password less than 9 characters";
@@ -167,31 +178,50 @@ class _loginpageState extends State<loginpage> {
                     SizedBox(
                       height: 17,
                     ),
-                    Container(
-                      child: MaterialButton(
-                        minWidth: 250,
-                        height: 45,
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        onPressed: () {
-                          if (formstate.currentState!.validate()) {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) {
-                              return MyHomePage();
-                            }));
-                          }
-                        },
-                        child: Text(
-                          "Login",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
+                    Consumer<cartmodel>(builder: (context, regprov, child) {
+                      return Container(
+                        child: MaterialButton(
+                          minWidth: 250,
+                          height: 45,
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)),
+                          onPressed: () {
+                            if (formstate.currentState!.validate()) {
+                              regprov
+                                  .login(
+                                email: emailcontroller.text,
+                                password: passwordcontroller.text,
+                              )
+                                  .then((value) {
+                                if (regprov.Loginmodel!.status == false) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(
+                                        regprov.Loginmodel!.message.toString()),
+                                    duration: Duration(seconds: 1),
+                                    backgroundColor: Colors.blue,
+                                  ));
+                                } else {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MyHomePage()));
+                                }
+                              });
+                            }
+                          },
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                          color: Colors.blue.withOpacity(0.8),
                         ),
-                        color: Colors.blue.withOpacity(0.8),
-                      ),
-                    ),
+                      );
+                    }),
                     SizedBox(
                       height: 15,
                     ),
